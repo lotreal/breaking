@@ -9,8 +9,8 @@ coffee = require 'gulp-coffee'
 sourcemaps = require 'gulp-sourcemaps'
 
 config =
-    coffee: ['./lib/']
-
+    coffee: ['./src/']
+    dist: './lib'
 
 gulp.task 'coffee', ->
     _.forEach config.coffee, (base)->
@@ -19,6 +19,6 @@ gulp.task 'coffee', ->
             .pipe coffee bare:true
             # .pipe sourcemaps.write()
             .on 'error', gutil.log
-            .pipe gulp.dest base
+            .pipe gulp.dest config.dist
 
 gulp.task 'default', ['coffee']

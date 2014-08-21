@@ -12,7 +12,7 @@ typeEqual = exports.typeEqual = (a, b)->
 #    key2: 'xx'
 #    '?key3': 'optional'
 patternEqual = exports.patternEqual = (pattern, target)->
-    if _.isArray pattern && _.isArray target
+    if _.isArray(pattern) && _.isArray(target)
         return patternEqual pattern[0], target[0]
 
     _.every pattern, (patt, key)->

@@ -11,12 +11,7 @@ filter = (callback)->
             return callback null, data.data
 
 exports.post = (url, data, callback)->
-    args =
-        headers:
-            'Content-Type': 'application/json'
-        data: data
-
-    rest.post url, args, filter(callback)
+    rest.post url, data, filter(callback)
 
 exports.get = (url, callback)->
     rest.get url, filter(callback)

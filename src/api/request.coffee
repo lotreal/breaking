@@ -3,17 +3,29 @@ _ = require 'lodash'
 {patternEqual} = require './pattern'
 client = require './client'
 
-request = (method, url)->
+request = (method, url, options)->
     method = method.toLowerCase()
 
     return ->
+        args =
+            headers:
+                'Content-Type': 'application/json'
+            data: {}
+
+        if @options.token
+            args.headers.Authorization = @options.token
+
         # set default callback
         unless _.isFunction(_.last arguments)
             Array.prototype.push.call arguments, (err, result)->
                 console.log err, result
-        # set post default args = {}
-        if method == 'post' && arguments.length == 1
-            Array.prototype.unshift.call arguments, {}
+
+        if method == 'post'
+            # set post data
+            if  _.isObject(_.first arguments)
+                args.data = Array.prototype.shift.call arguments
+            Array.prototype.unshift.call arguments, args
+
         # set request url
         Array.prototype.unshift.call arguments, url
         # console.log arguments
@@ -28,7 +40,11 @@ module.exports = (discovery)->
         _.forEach api.operations, (op)->
             resource[op.nickname] = {
                 path: url
-                request: request(op.httpMethod, url)
+                options: {}
+                token: (token)->
+                    @options.token = token
+                    return @
+                request: request(op.httpMethod, url, @)
                 verify: (res)->patternEqual op.responseClass, res
             }
     return resource

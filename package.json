@@ -1,0 +1,31 @@
+{
+  "name": "breaking",
+  "version": "0.0.1",
+  "description": "helper suit, for create and mock rest api, test api",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lotreal/breaking"
+  },
+  "keywords": [
+    "api",
+    "mock"
+  ],
+  "author": "Luo Tao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lotreal/breaking/issues"
+  },
+  "homepage": "https://github.com/lotreal/breaking",
+  "dependencies": {
+    "debug": "^1.0.4",
+    "lodash": "^2.4.1",
+    "node-rest-client": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1"
+  }
+}

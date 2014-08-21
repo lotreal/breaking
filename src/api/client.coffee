@@ -10,8 +10,8 @@ filter = (callback)->
         else
             return callback null, data.data
 
-exports.post = (url, data, callback)->
-    rest.post url, data, filter(callback)
+exports.post = (url, args, callback)->
+    rest.post url, args, filter(callback)
 
-exports.get = (url, callback)->
-    rest.get url, filter(callback)
+exports.get = (url, args, callback)->
+    rest.get url, args, filter(callback)

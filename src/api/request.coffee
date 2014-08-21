@@ -3,7 +3,7 @@ _ = require 'lodash'
 {patternEqual} = require './pattern'
 client = require './client'
 
-request = (method, url, options)->
+request = (method, url)->
     method = method.toLowerCase()
 
     return ->
@@ -14,6 +14,8 @@ request = (method, url, options)->
 
         if @options.token
             args.headers.Authorization = @options.token
+        if @options.query
+            args.parameters = @options.query
 
         # set default callback
         unless _.isFunction(_.last arguments)
@@ -24,7 +26,8 @@ request = (method, url, options)->
             # set post data
             if  _.isObject(_.first arguments)
                 args.data = Array.prototype.shift.call arguments
-            Array.prototype.unshift.call arguments, args
+
+        Array.prototype.unshift.call arguments, args
 
         # set request url
         Array.prototype.unshift.call arguments, url
@@ -41,6 +44,9 @@ module.exports = (discovery)->
             resource[op.nickname] = {
                 path: url
                 options: {}
+                query: (query)->
+                    @options.query = query
+                    return @
                 token: (token)->
                     @options.token = token
                     return @

@@ -16,6 +16,12 @@ patternEqual = exports.patternEqual = (pattern, target)->
         return patternEqual pattern[0], target[0]
 
     _.every pattern, (patt, key)->
+        unless target
+            debug "pattern = #{JSON.stringify pattern}(#{typeof pattern}), but res = #{targ}(#{typeof targ})."
+            console.log "pattern = #{JSON.stringify pattern}(#{typeof pattern}), but res = #{targ}(#{typeof targ})."
+
+            return false
+
         options =
             optional: false
 

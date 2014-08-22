@@ -105,7 +105,9 @@ api.login.request (err, token)->
 ```
 
 This code do it:
+
 1. POST 'http://127.0.0.1:3010/api/user/login'
+
 2. check the response is **patternEqual** as descibed by 'discovery.coffee'
 
 ### patternEqual

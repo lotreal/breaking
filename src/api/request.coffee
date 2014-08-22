@@ -40,17 +40,16 @@ module.exports = (discovery)->
     _.forEach discovery.apis, (api)->
         url = discovery.basePath + api.path
 
-        _.forEach api.operations, (op)->
-            resource[op.nickname] = {
-                path: url
-                options: {}
-                query: (query)->
-                    @options.query = query
-                    return @
-                token: (token)->
-                    @options.token = token
-                    return @
-                request: request(op.httpMethod, url, @)
-                verify: (res)->patternEqual op.responseClass, res
-            }
+        resource[api.name] = {
+            path: url
+            options: {}
+            query: (query)->
+                @options.query = query
+                return @
+            token: (token)->
+                @options.token = token
+                return @
+            request: request(api.httpMethod, url, @)
+            verify: (res)->patternEqual api.response, res
+        }
     return resource

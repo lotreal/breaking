@@ -14,7 +14,9 @@ npm i --save breaking
 
 ## Usage
 
-1. Describe your apis, and save as 'discovery.coffee'
+### Describe Your APIs
+
+Here's an example: (save as 'discovery.coffee')
 
 ```coffee
 module.exports =
@@ -58,7 +60,7 @@ module.exports =
     ]
 ```
 
-2. Boot
+### Boot the Mock API Server
 
 ```coffee
 express = require 'express'
@@ -73,7 +75,7 @@ app.listen 3400
 console.log 'breaking.bad listen to 3400...'
 ```
 
-3. OK
+### Done!
 
 ```bash
 % coffee app.coffee

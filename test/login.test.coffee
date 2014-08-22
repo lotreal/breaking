@@ -1,7 +1,7 @@
 "use strict"
 
 expect = require("chai").expect
-request = require('../').api.request
+request = require('../').request
 
 api = request require './discovery'
 

@@ -1,5 +1,9 @@
 module.exports =
     basePath: 'http://127.0.0.1:3010/api'
+    errorResponses:
+        request: 'REQUEST'
+        error_code: 404
+        error: 'page not found'
     apis: [
         {
             name: 'login'
@@ -9,11 +13,10 @@ module.exports =
                 username: 'lotreal@gmail.com'
                 password: 'dev'
             response:
-                id: ''
-                ttl: 999
+                id: 'nq41UtaBL2F79'
+                '?ttl': 999
                 created: '20140822 12:05:46'
                 userId: 1
-            errorResponses: []
         }
 
         {
@@ -33,6 +36,5 @@ module.exports =
                         fup: 0
                 }
             ]
-            errorResponses: []
         }
     ]

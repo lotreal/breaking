@@ -84,6 +84,7 @@ console.log 'breaking.bad listen to 3400...'
 
 ```bash
 % coffee app.coffee
+breaking.bad listen to 3400...
 
 % curl -X GET http://127.0.0.1:3400/api/homepage
 [{"tid":1,"subject":"Face Me","message":"I am content.","forum":{"fid":2,"name":"news","fup":0}}]

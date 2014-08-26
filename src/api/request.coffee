@@ -1,12 +1,15 @@
+debug = require('debug')('breaking:request')
 _ = require 'lodash'
 
+{stringify} = require 'qs'
 {patternEqual} = require './pattern'
 client = require './client'
 
-request = (method, url)->
+request = (method, path)->
     method = method.toLowerCase()
 
     return ->
+        url = path
         args =
             headers:
                 'Content-Type': 'application/json'
@@ -14,8 +17,13 @@ request = (method, url)->
 
         if @options.token
             args.headers.Authorization = @options.token
+
         if @options.query
-            args.parameters = @options.query
+            console.log _.isObject(@options.query)
+            # if _.isObject(@options.query)
+            #     args.parameters = @options.query
+            # else
+            url += '?' + stringify(@options.query)
 
         # set default callback
         unless _.isFunction(_.last arguments)
@@ -31,6 +39,12 @@ request = (method, url)->
 
         # set request url
         Array.prototype.unshift.call arguments, url
+
+        debug {
+            method: method
+            url: url
+            args: args
+        }
         # console.log arguments
         client[method].apply client, arguments
 

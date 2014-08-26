@@ -23,7 +23,7 @@
   "dependencies": {
     "debug": "^1.0.4",
     "lodash": "^2.4.1",
-    "node-rest-client": "^1.0.0"
+    "qs": "^2.1.0"
   },
   "devDependencies": {
     "chai": "^1.9.1",

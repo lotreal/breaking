@@ -5,32 +5,49 @@ _ = require 'lodash'
 {patternEqual} = require '../lib/api/pattern'
 
 patt =
-    tid: 8
-    subject: 'Face Me'
-    dateline: 1408506128
-    '?image':
-        url: 'dan.jpg'
-        mediaid: 123
-    author:
-        uid: 3
-        username: 'fish'
+    '?data': [
+        tid: 8
+        subject: 'Face Me'
+        dateline: 1408506128
+        '?image': 'dan.jpg'
+        author:
+            uid: 3
+            username: 'fish'
+    ]
+    '?error': 404
 
+res1 =
+    data: [
+        tid: 8
+        subject: 'Face Me'
+        dateline: 1408506128
+        image: 'dan.jpg'
+        author:
+            uid: 3
+            username: 'fish'
+    ]
+
+res2 =
+    error: 401
 
 describe 'myshool.yukuai.cn/api/',->
-    it 'compare', (done)->
-        res = _.clone patt
-        res.image = 'dan.jpg'
-        expect(patternEqual(patt, res)).to.be.not.ok
+    it 'compare res1', (done)->
+        expect(patternEqual(patt, res1)).to.be.ok
 
-        delete res.image
-        expect(patternEqual(patt, res)).to.be.ok
+        res1.data[0].image = url: 'lol.jpg'
+        expect(patternEqual(patt, res1)).to.be.not.ok
 
-        res.image = url: 'lol.jpg'
-        expect(patternEqual(patt, res)).to.be.not.ok
+        delete res1.data[0].image
+        expect(patternEqual(patt, res1)).to.be.ok
 
-        res.image.mediaid = 321
-        expect(patternEqual(patt, res)).to.be.ok
+        delete res1.data[0].author
+        expect(patternEqual(patt, res1)).to.be.not.ok
 
-        delete res.author
-        expect(patternEqual(patt, res)).to.be.not.ok
+        done()
+
+    it 'compare res2', (done)->
+        expect(patternEqual(patt, res2)).to.be.ok
+
+        res2.error = '401'
+        expect(patternEqual(patt, res2)).to.be.not.ok
         done()

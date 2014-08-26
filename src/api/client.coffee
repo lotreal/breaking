@@ -21,7 +21,7 @@ performRequest = (endpoint, method, args, success) ->
         path = "#{path}?#{qs.stringify(query)}"
     else
         data = JSON.stringify(data)
-        headers['Content-Length'] = data.length
+        headers['Content-Length'] = Buffer.byteLength(data, 'utf8')
 
     options =
         hostname: url.hostname
@@ -34,15 +34,17 @@ performRequest = (endpoint, method, args, success) ->
     debug options
 
     req = protocol.request(options, (res) ->
-        res.setEncoding "utf-8"
-        responseString = ""
-        res.on "data", (data) ->
-            responseString += data
+        # res.setEncoding "utf-8"
+        buffer = []
+
+        res.on "data", (chunk) ->
+            buffer.push chunk
             return
 
         res.on "end", ->
-            debug responseString
-            responseObject = JSON.parse(responseString)
+            # TODO support gunzip
+            responseObject = JSON.parse(buffer.join(''))
+            debug responseObject
             success responseObject
             return
 
@@ -50,6 +52,10 @@ performRequest = (endpoint, method, args, success) ->
     )
 
     req.write data if method is 'POST'
+
+    req.on 'err', (err)->
+        debug err
+
     req.end()
     return
 

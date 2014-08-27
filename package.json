@@ -1,6 +1,6 @@
 {
   "name": "breaking",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "helper suit, for create and mock rest api, test api",
   "main": "index.js",
   "scripts": {

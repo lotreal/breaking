@@ -19,10 +19,6 @@ request = (method, path)->
             args.headers.Authorization = @options.token
 
         if @options.query
-            console.log _.isObject(@options.query)
-            # if _.isObject(@options.query)
-            #     args.parameters = @options.query
-            # else
             url += '?' + stringify(@options.query)
 
         # set default callback
@@ -45,7 +41,6 @@ request = (method, path)->
             url: url
             args: args
         }
-        # console.log arguments
         client[method].apply client, arguments
 
 module.exports = (discovery)->

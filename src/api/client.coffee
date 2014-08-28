@@ -18,10 +18,14 @@ performRequest = (endpoint, method, args, success) ->
 
     if method is 'GET'
         query = _.merge qs.parse(url.query), data, args.query
-        path = "#{path}?#{qs.stringify(query)}"
+
     else
+        query = _.merge qs.parse(url.query), args.query
         data = JSON.stringify(data)
         headers['Content-Length'] = Buffer.byteLength(data, 'utf8')
+
+    querystring = qs.stringify(query)
+    path = "#{path}?#{querystring}" if querystring
 
     options =
         hostname: url.hostname
@@ -44,7 +48,6 @@ performRequest = (endpoint, method, args, success) ->
         res.on "end", ->
             # TODO support gunzip
             responseObject = JSON.parse(buffer.join(''))
-            debug responseObject
             success responseObject
             return
 

@@ -26,7 +26,7 @@ request = (method, path)->
             Array.prototype.push.call arguments, (err, result)->
                 console.log err, result
 
-        if method == 'post'
+        if method is 'post' || method is 'put'
             # set post data
             if  _.isObject(_.first arguments)
                 args.data = Array.prototype.shift.call arguments

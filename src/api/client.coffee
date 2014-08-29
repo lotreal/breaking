@@ -54,7 +54,8 @@ performRequest = (endpoint, method, args, success) ->
         return
     )
 
-    req.write data if method is 'POST'
+    if method is 'POST' || method is 'PUT'
+        req.write data
 
     req.on 'err', (err)->
         debug err
@@ -74,3 +75,6 @@ exports.post = (url, args, callback)->
 
 exports.get = (url, args, callback)->
     performRequest url, 'get', args, filter(callback)
+
+exports.put = (url, args, callback)->
+    performRequest url, 'put', args, filter(callback)

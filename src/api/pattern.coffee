@@ -1,5 +1,4 @@
 _ = require 'lodash'
-debug = require('debug')('breaking.pattern')
 
 typeEqual = exports.typeEqual = (a, b)->
     (typeof a) == (typeof b)
@@ -17,7 +16,7 @@ patternEqual = exports.patternEqual = (pattern, target)->
 
     _.every pattern, (patt, key)->
         unless target
-            debug "pattern = #{JSON.stringify pattern}(#{typeof pattern}), but res = #{targ}(#{typeof targ})."
+            throw new Error("PatternEqual Error: pattern = #{JSON.stringify pattern}(#{typeof pattern}), but res = #{targ}(#{typeof targ}).")
 
             return false
 
@@ -32,7 +31,7 @@ patternEqual = exports.patternEqual = (pattern, target)->
 
         return true if !targ && options.optional
         unless typeEqual patt, targ
-            debug "pattern.#{key} = #{patt}(#{typeof patt}), but res.#{key} = #{targ}(#{typeof targ})."
+            throw new Error("PatternEqual Error: pattern.#{key} = #{patt}(#{typeof patt}), but res.#{key} = #{targ}(#{typeof targ}).")
             return false
         return patternEqual patt, targ if _.isObject patt
         return true

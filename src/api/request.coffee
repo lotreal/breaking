@@ -43,9 +43,7 @@ request = (method, path)->
         }
         client[method].apply client, arguments
 
-module.exports = (discovery)->
-    resource = {}
-
+parseDiscovery = (discovery, resource)->
     _.forEach discovery.apis, (api)->
         url = discovery.basePath + api.path
 
@@ -61,4 +59,9 @@ module.exports = (discovery)->
             request: request(api.httpMethod, url, @)
             verify: (res)->patternEqual api.response, res
         }
+
+module.exports = ->
+    resource = {}
+    _.forEach arguments, (discovery)->
+        parseDiscovery discovery, resource
     return resource

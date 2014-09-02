@@ -31,16 +31,17 @@ request = (method, path)->
             if  _.isObject(_.first arguments)
                 args.data = Array.prototype.shift.call arguments
 
+        if method is 'get'
+            # remove data for get
+            if arguments.length is 2
+                Array.prototype.shift.call arguments
+
         Array.prototype.unshift.call arguments, args
 
         # set request url
         Array.prototype.unshift.call arguments, url
 
-        debug {
-            method: method
-            url: url
-            args: args
-        }
+        debug method, arguments
         client[method].apply client, arguments
 
 parseDiscovery = (discovery, resource)->

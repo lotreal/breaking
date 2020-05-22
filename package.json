@@ -23,7 +23,7 @@
   "dependencies": {
     "debug": "^1.0.4",
     "lodash": "^2.4.1",
-    "qs": "^2.1.0"
+    "qs": "^6.9.4"
   },
   "devDependencies": {
     "chai": "^1.9.1",
